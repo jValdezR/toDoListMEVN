@@ -1,0 +1,18 @@
+{
+  "name": "proyecto_pila_1",
+  "version": "1.0.0",
+  "description": "Proyecto para la asignatura Pila Completa 1 impartida por el ingeniero Juan Carlos Ulloa.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "author": "Jesus Daniel Valdez Rodriguez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.11",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  }
+}
