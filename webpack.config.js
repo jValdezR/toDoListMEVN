@@ -3,7 +3,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 module.exports = {
     entry: './src/app/index.js',
     output: {
-        path: __dirname + '/src/public',
+        path: __dirname + '/src/public/js',
         filename: 'bundle.js'
     },
     module: {
@@ -11,7 +11,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                use: {loader: 'babel-loader'}
                 
             },
             {

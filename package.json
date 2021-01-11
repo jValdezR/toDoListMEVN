@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js",
-    "webpack": "webpack --mode development"
+    "webpack": "webpack --mode development --watch"
   },
   "author": "Jesus Daniel Valdez Rodriguez",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.11.11",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "babel-loader": "^8.2.2",
