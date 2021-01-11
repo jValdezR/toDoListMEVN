@@ -1,0 +1,1 @@
+alert('Vue js va aqui');

@@ -5,15 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "webpack": "webpack --mode development"
   },
   "author": "Jesus Daniel Valdez Rodriguez",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.12.10",
     "express": "^4.17.1",
     "mongoose": "^5.11.11",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.7",
-    "webpack": "^5.12.3"
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.12.3",
+    "webpack-cli": "^4.3.1"
   }
 }
