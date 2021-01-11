@@ -7,7 +7,7 @@ const morgan = require('morgan');
 
 //Inicia el server
 const app = express();
-mongoose.connect('mongodb://localhost/proyecto_pila_1_db')
+mongoose.connect('mongodb://localhost/proyecto_pila_1_db',{ useNewUrlParser: true, useUnifiedTopology: true},)
 .then(console.log('DB Connected'))
 .catch(err => console.log(err));
 
