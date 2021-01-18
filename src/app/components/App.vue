@@ -19,8 +19,13 @@
                                     <textarea class="form-control" v-model="task.descripcion"
                                     placeholder="Agrega una descripcion" 
                                     cols="30" rows="10"></textarea>
-                                </div>            
-                                <button class="btn btn-primary btn-block">Guardar</button>
+                                </div>           
+                                <template v-if="edit ===false">
+                                    <button class="btn btn-primary btn-block">Guardar</button>
+                                </template> 
+                                <template v-else>
+                                    <button class="btn btn-primary btn-block">Editar</button>
+                                </template> 
                             </form>
                         </div>
                     </div>
@@ -39,6 +44,12 @@
                                     {{task.title}}
                                 </td>
                                 <td>{{task.descripcion}}</td>
+                                <td>
+                                    <button @click="updateTask(task._id)" class="btn btn-secondary">Editar</button>
+                                </td>
+                                <td>
+                                    <button @click="deleteTask(task._id)" class="btn btn-danger">Eliminar</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -49,7 +60,12 @@
 </template>
 
 <script>
-
+/* class Task {
+    constructor(title,descripcion) {
+        this.title = title;
+        this.descripcion = descripcion;
+    }
+} */
 
 
 export default {
@@ -59,7 +75,9 @@ export default {
                 title: '',
                 descripcion: ''
             },
-            tasks: []
+            tasks: [],
+            edit: false,
+            id_task: ' '
         }
     },
     created() {
@@ -75,7 +93,9 @@ export default {
             })
         },
         addTask() {
-            fetch('/tasks',{
+
+            if(this.edit == false){
+                fetch('/tasks',{
                 method: 'POST',
                 body: JSON.stringify(this.task),
                 headers: {
@@ -83,13 +103,55 @@ export default {
                    'Content-type': 'application/json'
                    }
                 })
-                .then( res => res.json())
-                .then( data => console.log(data))
-
+                .then( this.getTask())
+            }
+            else{
+                console.log(this.id_task);
+                this.edit = false;
+                fetch('/tasks/'+ this.id_task,{
+                method: 'PUT',
+                body: JSON.stringify(this.task),
+                headers: {
+                   'Accept': 'application/json',
+                   'Content-type': 'application/json'
+                   }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .then( this.getTask())
+            }
+        
                 this.task.title = '';
                 this.task.descripcion = '';
             },
 
+        deleteTask(id) {
+            console.log(id);
+            fetch('/tasks/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data =>console.log(data))
+            .then(this.getTask());
+        },
+
+        updateTask(id) {
+            console.log(id);
+            fetch('/tasks/' + id)
+            .then(res => res.json())
+            .then(data => {
+                this.task.title = data.title;
+                this.task.descripcion = data.descripcion;
+            });
+            this.edit = true;
+            this.id_task = id;
+        }
             
         }
     }
