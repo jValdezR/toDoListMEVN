@@ -12,6 +12,8 @@ router.post('/login', userCtrl.login);//Loguear usuario
 
 router.post('/newUser', userCtrl.newUser);//Registrar nuevo usuario
 
+router.post('/resetPass', userCtrl.resetPass);//Mostrar contraseña
+
 //-----------------------------TAREAS----------------------------------------------------------//
 
 router.get('/app/', taskCtrl.getTasks);//Obtener todas las tareas

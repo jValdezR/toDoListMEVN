@@ -5,7 +5,7 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center">Recupera tu contraseña</h5>
-            <form @submit.prevent="register" class="form-signin">
+            <form @submit.prevent="reset" class="form-signin">
 
               <div class="form-label-group">
                 <input
@@ -27,6 +27,7 @@
               <br />
               <hr class="my-4" />
             </form>
+            <button class="btn btn-danger">Regresar</button>
           </div>
         </div>
       </div>
@@ -44,8 +45,8 @@ export default {
     };
   },
   methods: {
-    register() {
-      fetch("/newUser", {
+    reset() {
+      fetch("/api/auth/resetPass", {
         method: "POST",
         body: JSON.stringify(this.user),
         headers: {

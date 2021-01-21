@@ -35,5 +35,13 @@ userCtrl.newUser = async (req, res) => {//Registrar nuevo usuario
     }
 }
 
+userCtrl.resetPass = async(req,res) => {
+    console.log("Entrando a reset");
+    const user = await User.find({mail:req.body.mail});
+    if(user.length > 0)
+        res.json(user);
+    else
+        res.json({status: 'not-found'});
+}
 
 module.exports = userCtrl;

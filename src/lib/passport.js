@@ -19,18 +19,6 @@ helpers.matchPassword = async (password, savedPassword) => {
 
 };
 
-/* async function checkId() {
-    const id_user = (Math.floor(Math.random() * (10000001))) + 10000000;
-    const text = 'SELECT * FROM usuario WHERE id_usuario= $1';
-    const value = [id_user];
-    const { rows } = await pool.query(text, value);
-    if (rows.length > 0) {
-        checkId();
-    } else {
-        return id_user;
-    }
-}; */
-
 helpers.singIn = async (data) => {
 
     const user = await User.find({ mail: data.mail });
@@ -47,7 +35,6 @@ helpers.singIn = async (data) => {
 };
 
 helpers.signUp = async(newUser) => {
-    console.log("Entrando a helper");
     const user = await User.find({ mail: newUser.mail });
 
     if(user.length == 0){

@@ -66,8 +66,8 @@ export default {
          .then(data => {
            console.log(data);
 
-           if(data['status'] != 'not-found'){
-             console.log('Comprobando pass');
+           if(data['status'] == 'ok'){
+             
            }
          })
        }

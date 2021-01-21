@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="task of tasks">
+                            <tr v-for="task of tasks" v-bind:key="task.id">
                                 <td>
                                     {{task.title}}
                                 </td>
