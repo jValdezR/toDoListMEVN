@@ -17,8 +17,8 @@
               </div>
 
               <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Recordar contraseña</label>
+                <input type="checkbox" id="checkbox" v-model="checked">
+                <label for="checkbox">{{ checked }}</label>
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
               <br>
@@ -37,9 +37,6 @@
 </template>
 
 <script>
-import App from './App.vue'
-import newUser from './newUser.vue'
-import resetPass from './resetPass.vue'
 
 export default {
     
@@ -48,7 +45,8 @@ export default {
         userLogin: {
           mail: '',
           pass: ''
-        }
+        },
+        checked: 'Recordar pass'
       }
       
     },
@@ -67,8 +65,13 @@ export default {
            console.log(data);
 
            if(data.status == 'ok'){
-             localStorage.setItem(JSON.stringify(this.userLogin));
+             console.log(this.checked);
+             if(this.checked){
+               localStorage.setItem('user', JSON.stringify(this.userLogin));
+             }
+             sessionStorage.setItem('id', JSON.stringify(data.id));
            }
+           
          })
        }
     }

@@ -8,19 +8,27 @@ userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
 }
 
 userCtrl.login = async (req, res) => {//Loguear un usuario
-    const user = req.body;
-    
-    try {
-        const verification = await helpers.singIn(user);
-        if (verification == 'ok')
-            res.json({ status: 'ok' });
-        else if(verification == 'wrong pass')
-            res.json({ status: 'failed' });
-        else
-            res.json({status: 'Unkown mail'})
-    } catch (error) {
+    const data = req.body;
+    const  user = await User.find({mail:req.body.mail});
 
+    if(user.length > 0){
+        try {
+            const verification = await helpers.singIn(data);
+            if (verification == 'ok')
+                res.json({ 
+                    status: 'ok', 
+                    id: user[0]['_id']
+                });
+            else if(verification == 'wrong pass')
+                res.json({ status: 'failed' });
+            
+        } catch (error) {
+    
+        }
     }
+    else
+        res.json({status: 'Unkown mail'})
+    
 }
 
 userCtrl.newUser = async (req, res) => {//Registrar nuevo usuario
