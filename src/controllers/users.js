@@ -9,13 +9,15 @@ userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
 
 userCtrl.login = async (req, res) => {//Loguear un usuario
     const user = req.body;
-    console.log(user);
+    
     try {
         const verification = await helpers.singIn(user);
-        if (verification)
+        if (verification == 'ok')
             res.json({ status: 'ok' });
-        else
+        else if(verification == 'wrong pass')
             res.json({ status: 'failed' });
+        else
+            res.json({status: 'Unkown mail'})
     } catch (error) {
 
     }

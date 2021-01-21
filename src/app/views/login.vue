@@ -66,8 +66,8 @@ export default {
          .then(data => {
            console.log(data);
 
-           if(data['status'] == 'ok'){
-             
+           if(data.status == 'ok'){
+             localStorage.setItem(JSON.stringify(this.userLogin));
            }
          })
        }

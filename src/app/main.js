@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import router from './router.js'
-import login from './views/resetPass.vue'
+import login from './views/login.vue'
+import newUser from './views/newUser.vue'
+import resetPass from './views/resetPass.vue'
 
 
  var vm = new Vue({

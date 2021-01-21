@@ -72,9 +72,11 @@ export default {
     data() {
         return {
             task: {
+                id_usuario: '',
                 title: '',
                 descripcion: ''
             },
+            /* id_user: JSON.parse(localStorage.getItem(key:)) */
             tasks: [],
             edit: false,
             id_task: ' '

@@ -11,8 +11,12 @@ helpers.encryptPassword = async (password) => {
 };
 
 helpers.matchPassword = async (password, savedPassword) => {
+    var a;
     try {
-        return await bcrypt.compare(password, savedPassword);
+        const b = await bcrypt.compare(password, savedPassword).then(function(result){
+            a = result;
+        });
+        return a;
     } catch (err) {
         console.log(err);
     }
@@ -22,8 +26,8 @@ helpers.matchPassword = async (password, savedPassword) => {
 helpers.singIn = async (data) => {
 
     const user = await User.find({ mail: data.mail });
-    const okPass = await helpers.matchPassword(user.pass,data.pass);
-
+    const okPass = await helpers.matchPassword(data.pass,user[0]['pass']);
+    console.log(okPass);
     if(user.length > 0){
         if(okPass)
         return 'ok';
