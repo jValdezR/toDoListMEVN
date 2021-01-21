@@ -16,7 +16,7 @@ router.post('/resetPass', userCtrl.resetPass);//Mostrar contraseña
 
 //-----------------------------TAREAS----------------------------------------------------------//
 
-router.get('/app/', taskCtrl.getTasks);//Obtener todas las tareas
+router.post('/app/', taskCtrl.getTasks);//Obtener todas las tareas
 
 router.get('/app/:id', taskCtrl.getTask);//Obtener una de las tareas
 
@@ -24,6 +24,6 @@ router.post('/app/addTask',taskCtrl.addTask);//Agregar nueva tarea)
 
 router.put('/app/updateTask/:id',taskCtrl.updateTask);//Editar tarea
 
-router.delete('/app/deleteTask:/id', taskCtrl.deleteTask);//Eliminar tarea
+router.delete('/app/deleteTask/:id', taskCtrl.deleteTask);//Eliminar tarea
 
 module.exports = router;

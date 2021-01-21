@@ -27,7 +27,9 @@
               <br />
               <hr class="my-4" />
             </form>
-            <button class="btn btn-danger">Regresar</button>
+            <router-link :to="{name: 'login'}">
+              <button class="btn btn-danger">Regresar</button>
+            </router-link>
           </div>
         </div>
       </div>

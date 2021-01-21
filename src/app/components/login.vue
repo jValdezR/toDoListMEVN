@@ -22,10 +22,15 @@
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
               <br>
-
-              <button class="btn btn-secondary btn-block">Crear una cuenta</button>
+              <router-link :to="{name: 'register'}">
+                <button class="btn btn-secondary btn-block">Crear una cuenta</button>
+              </router-link>
+              
               <br>
-              <a href="">Olvidaste tu contraseña?</a>
+              <router-link :to="{name: 'resetPass'}">
+                <button class="btn btn-secondary btn-block">Recuperar constraseña</button>
+              </router-link>
+              
               <hr class="my-4">
 
             </form>
@@ -62,14 +67,13 @@ export default {
          })
          .then(res => res.json())
          .then(data => {
-           console.log(data);
 
            if(data.status == 'ok'){
-             console.log(this.checked);
              if(this.checked){
                localStorage.setItem('user', JSON.stringify(this.userLogin));
              }
              sessionStorage.setItem('id', JSON.stringify(data.id));
+             this.$router.push('App')
            }
            
          })

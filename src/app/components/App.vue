@@ -1,9 +1,5 @@
 <template>
     <div>
-        <nav class="navbar navbar-light bg-light">
-            <a href="/" class="navbar-brand">Proyecto</a>
-        </nav>
-
         <div class="container">
             <div class="row pt-5">
                 <div class="col-md-5">
@@ -78,8 +74,7 @@ export default {
             },
             /* id_user: JSON.parse(localStorage.getItem(key:)) */
             tasks: [],
-            edit: false,
-            id_task: ' '
+            edit: false
         }
     },
     created() {
@@ -87,7 +82,15 @@ export default {
     },
     methods: {
         getTask(){
-            fetch('/tasks')
+            const ide = sessionStorage.getItem('id')
+            fetch('/api/auth/app/',{
+                method: 'POST',
+                body: JSON.stringify({id: ide}),
+                headers: {
+                   'Accept': 'application/json',
+                   'Content-type': 'application/json'
+                   }
+            })
             .then(res => res.json())
             .then( data  => {
                 console.log(data);
@@ -95,9 +98,11 @@ export default {
             })
         },
         addTask() {
-
+            
             if(this.edit == false){
-                fetch('/tasks',{
+                const ide = sessionStorage.getItem('id')
+                this.task.id_usuario = ide;
+                fetch('/api/auth/app/addTask/',{
                 method: 'POST',
                 body: JSON.stringify(this.task),
                 headers: {
@@ -110,7 +115,7 @@ export default {
             else{
                 console.log(this.id_task);
                 this.edit = false;
-                fetch('/tasks/'+ this.id_task,{
+                fetch('/api/auth/app/updateTask/'+ this.id_task,{
                 method: 'PUT',
                 body: JSON.stringify(this.task),
                 headers: {
@@ -131,7 +136,7 @@ export default {
 
         deleteTask(id) {
             console.log(id);
-            fetch('/tasks/' + id, {
+            fetch('/api/auth/app/deleteTask/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -145,7 +150,7 @@ export default {
 
         updateTask(id) {
             console.log(id);
-            fetch('/tasks/' + id)
+            fetch('/api/auth/app/' + id)
             .then(res => res.json())
             .then(data => {
                 this.task.title = data.title;

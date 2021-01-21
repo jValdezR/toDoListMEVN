@@ -10,7 +10,8 @@ taskCtrl.getTask = async(req,res) => {
 
 //Obtiene las tareas de la bd
 taskCtrl.getTasks = async(req, res) =>{
-    const tasks = await Task.find();
+    console.log(req.body.id);
+    const tasks = await Task.find({id_usuario: req.body.id});
     res.json(tasks);
 };
 
