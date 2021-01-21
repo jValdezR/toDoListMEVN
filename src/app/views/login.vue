@@ -23,7 +23,7 @@
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
               <br>
 
-              <a href="">No tienes cuenta?</a>
+              <button class="btn btn-secondary btn-block">Crear una cuenta</button>
               <br>
               <a href="">Olvidaste tu contraseña?</a>
               <hr class="my-4">
@@ -37,7 +37,12 @@
 </template>
 
 <script>
+import App from './App.vue'
+import newUser from './newUser.vue'
+import resetPass from './resetPass.vue'
+
 export default {
+    
     data() {
       return {
         userLogin: {
@@ -49,7 +54,7 @@ export default {
     },
     methods: {
        login() {
-         fetch('/login', {
+         fetch('/api/auth/login', {
            method: 'POST',
            body: JSON.stringify(this.userLogin),
            headers: {
@@ -58,7 +63,13 @@ export default {
                    }
          })
          .then(res => res.json())
-         .then(data => console.log(data))
+         .then(data => {
+           console.log(data);
+
+           if(data['status'] != 'not-found'){
+             console.log('Comprobando pass');
+           }
+         })
        }
     }
 }

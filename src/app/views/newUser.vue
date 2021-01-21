@@ -55,6 +55,7 @@
               <br>
               <hr class="my-4" />
             </form>
+            <button class="btn btn-danger">Regresar</button>
           </div>
         </div>
       </div>
@@ -72,16 +73,16 @@ export default {
         phone: "",
         pass: "",
       },
-    };
+    }
   },
   methods: {
     register() {
-      fetch("/newUser", {
-        method: "POST",
+      fetch('/api/auth/newUser', {
+        method: 'POST',
         body: JSON.stringify(this.user),
         headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
         },
       })
         .then((res) => res.json())

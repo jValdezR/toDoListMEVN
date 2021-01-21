@@ -1,5 +1,6 @@
 const userCtrl = {};
 const User = require('../models/user');
+const helpers = require('../lib/passport');
 
 userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
     const user = await User.find();
@@ -7,22 +8,32 @@ userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
 }
 
 userCtrl.login = async (req, res) => {//Loguear un usuario
-    const user = await User.find({ "mail": req.body.mail });
-    
-    if (user.length > 0)
-        res.json(user);
-    else
-        res.json('Not found');
+    const user = req.body;
+    console.log(user);
+    try {
+        const verification = await helpers.singIn(user);
+        if (verification)
+            res.json({ status: 'ok' });
+        else
+            res.json({ status: 'failed' });
+    } catch (error) {
+
+    }
 }
 
 userCtrl.newUser = async (req, res) => {//Registrar nuevo usuario
-    const user = await User.find({ "mail": req.body.mail });
-    if (user.length > 0)
-        res.json('Ya existe el usuario en la aplicacion');
-    else {
-        const user2 = new User(req.body);
-        await user2.save();
-        res.json('Ok');
+    const user = req.body;
+    try {
+        const Verification = await helpers.signUp(user);
+        if (Verification) {
+            res.json({ status: 'Registered!' });
+        } else
+            res.json({ status: 'Email already registered!' });
+
+    } catch (e) {
+        /* console.log(e); */
     }
 }
+
+
 module.exports = userCtrl;

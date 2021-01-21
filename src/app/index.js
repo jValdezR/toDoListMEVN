@@ -1,7 +1,9 @@
 import Vue from 'vue';
-import App from './components/App.vue';
-import login from './components/login.vue'
-import newUser from './components/newUser.vue'
+import router from './router'
+import App from './views/login.vue'
+
+
 new Vue({
-    render: h => h(login)
+    //router,
+    render: h => h(App)
 }).$mount('#app');//Irá montado en un div con ese id
