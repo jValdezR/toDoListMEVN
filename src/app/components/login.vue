@@ -44,8 +44,8 @@
 <script>
 
 export default {
-    
     data() {
+      
       return {
         userLogin: {
           mail: '',
@@ -55,7 +55,17 @@ export default {
       }
       
     },
+    created() {
+      this.loadStorage();
+    },
     methods: {
+      loadStorage() {
+        const password = JSON.parse(localStorage.getItem('user'));
+        if(password){
+          this.userLogin.mail = password['mail'];
+          this.userLogin.pass = password['pass'];
+        }
+      },
        login() {
          fetch('/api/auth/login', {
            method: 'POST',

@@ -1,6 +1,10 @@
 <template>
     <div>
         <div class="container">
+            <div>
+                <router-link :to="{name: 'login'}"><button class="btn btn-danger float-right">Cerrar sesión</button></router-link>
+                
+            </div>
             <div class="row pt-5">
                 <div class="col-md-5">
                     <div class="card">
