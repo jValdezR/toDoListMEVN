@@ -2,12 +2,13 @@
 const express = require('express');
 //Mongoose
 const mongoose = require('mongoose');
+
 //Morgan (Monitor de peticiones)
 const morgan = require('morgan');
 
 //Inicia el server
 const app = express();
-mongoose.connect('mongodb://localhost/proyecto_pila_1_db',{ useNewUrlParser: true, useUnifiedTopology: true},)
+mongoose.connect('mongodb://localhost/proyecto_pila_1',{ useNewUrlParser: true, useUnifiedTopology: true},)
 .then(console.log('DB Connected'))
 .catch(err => console.log(err));
 
@@ -20,10 +21,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //Routes
-app.use('/tasks', require('./routes/tasks.js'));
+app.use('/api/auth', require('./routes/Validations'));
 
 //Static files
-
 console.log(__dirname +'/public');
 app.use(express.static(__dirname +'/public'))
 
