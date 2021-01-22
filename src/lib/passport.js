@@ -4,7 +4,7 @@ const helpers = {};
 
 const User = require('../models/user');
 
-const { sendWelcomeEmail, sendEmailRec } = require('./notifications');
+const { sendWelcomeEmail, sendEmailRec } = require('./email');
 
 helpers.encryptPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
@@ -57,6 +57,28 @@ helpers.signUp = async(newUser) => {
     }
     else
         return false;
+};
+
+function makePass(size) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < size; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+helpers.mailRe = async(data) => {
+    console.log('Entrando a jelper');
+    const user = await User.find({ mail: data });
+    if (user.length > 0) {
+        let size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+        const nPass = makePass(size);
+        let id = user[0]['_id'];
+        return sendEmailRec(id, data, nPass);
+    } else
+        return 'Invalid Email!';
 };
 
 module.exports = helpers;

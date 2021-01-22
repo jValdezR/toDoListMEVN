@@ -6,7 +6,6 @@
           <div class="card-body">
             <h5 class="card-title text-center">Recupera tu contraseña</h5>
             <form @submit.prevent="reset" class="form-signin">
-
               <div class="form-label-group">
                 <input
                   v-model="user.mail"
@@ -17,17 +16,14 @@
                   autofocus
                 />
               </div>
-              <br>
-              <button
-                class="btn btn-lg btn-primary btn-block"
-                type="submit"
-              >
+              <br />
+              <button class="btn btn-lg btn-primary btn-block" type="submit">
                 Recuperar
               </button>
               <br />
               <hr class="my-4" />
             </form>
-            <router-link :to="{name: 'login'}">
+            <router-link :to="{ name: 'login' }">
               <button class="btn btn-danger">Regresar</button>
             </router-link>
           </div>
@@ -42,7 +38,7 @@ export default {
   data() {
     return {
       user: {
-        mail: ""
+        mail: "",
       },
     };
   },
@@ -51,22 +47,24 @@ export default {
       // Use sweetalert2
       this.$swal({
         title: "Listo",
-        text: "Se ha enviado un enlace a tu correo para reestablecer tu contraseña",
+        text:
+          "Se ha enviado un enlace a tu correo para reestablecer tu contraseña",
         icon: "success",
         confirmButtonText: "Cerrar",
       });
     },
-    /* reset() {
-      fetch("/api/auth/resetPass", {
+    reset() {
+      fetch("/api/auth/recovery/", {
         method: "POST",
         body: JSON.stringify(this.user),
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
         },
-      })
-        this.resetPass();
-    }, */
+      }).then(res =>res.json())
+      .then(data =>console.log(data));
+      this.resetPass();
+    },
   },
 };
 </script>

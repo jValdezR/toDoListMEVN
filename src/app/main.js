@@ -12,7 +12,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 
 new Vue({
-    render: h => h(App),
+    render: h => h(resetPass),
     router,
-    components: {App}
+    components: {resetPass}
 }).$mount('#app');//Irá montado en un div con ese id

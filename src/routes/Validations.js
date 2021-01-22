@@ -12,7 +12,7 @@ router.post('/login', userCtrl.login);//Loguear usuario
 
 router.post('/newUser', userCtrl.newUser);//Registrar nuevo usuario
 
-
+router.post('/recovery', userCtrl.getRecovery);//Recuperar contraseña
 
 //-----------------------------TAREAS----------------------------------------------------------//
 

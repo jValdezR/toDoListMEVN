@@ -83,7 +83,7 @@ function sendEmailRec(userId, mail, nPass) {
             Si usted no ha solicitado dicho cambio, solo ignore este mensaje.<br><br></h3>`,
                 attachments: [{
                     filename: 'logo.png',
-                    path: __dirname + '/../assets/logo.png',
+                    path: __dirname + '/../app/assets/logo.png',
                     cid: 'logo'
                 }]
             });

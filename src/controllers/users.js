@@ -45,11 +45,17 @@ userCtrl.newUser = async (req, res) => {//Registrar nuevo usuario
     } catch (e) {
         /* console.log(e); */
     }
-}
+};
 
+userCtrl.getRecovery = async(req, res) => {
+    const mail = req.body;
+    try {
+        const Verification = await helpers.mailRe(mail['mail']);
+        res.json({ status: Verification });
+    } catch (e) { /* console.log(e); */ }
+};
 
-
-userCtrl.newPass = async(req, res) => {
+/* userCtrl.newPass = async(req, res) => {
     let id_user = req.body.id_user;
     let pass = req.body.pass;
     let newPass = req.body.newPass;
@@ -70,18 +76,19 @@ userCtrl.newPass = async(req, res) => {
             }
         }
     } catch (e) {
-        /* console.log(e); */
+        console.log(e); 
     }
-};
+}; 
+*/
 
-userCtrl.registerConfirm = async(req, res) => {
+userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
     try {
         const id = jwt.verify(req.params.token, EMAIL_SECRET);
         let text2 = 'SELECT * FROM vistaEstadoUsuario WHERE id_usuario = $1';
         let values = [id.user];
         const { rows } = await pool.query(text2, values);
 
-        if (rows[0].activo == false) {
+        if (rows[0].active == false) {
             let text = 'SELECT estadoUsuario($1)';
             await pool.query(text, values);
         } else if (rows[0].activo == null) {
@@ -94,15 +101,22 @@ userCtrl.registerConfirm = async(req, res) => {
         res.send('error: ' + e);
     }
 
-    return res.redirect('http://35.206.82.124/');
+    return res.redirect('http://127.0.0.1');
 };
 
-userCtrl.getRecovery = async(req, res) => {
-    const mail = req.body.email;
+
+userCtrl.defaultPassword = async(req, res) => {
     try {
-        const Verification = await helpers.mailRe(mail);
-        res.json({ status: Verification });
-    } catch (e) { /* console.log(e); */ }
+        const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
+        let text = 'SELECT cambiarPass($1,$2)';
+        const encPass = await helpers.encryptPassword(id.pass);
+        let values = [id.user[0], encPass];
+        await pool.query(text, values);
+    } catch (e) {
+        res.send('error');
+    }
+
+    return res.redirect('http://127.0.0.1/');
 };
 
 userCtrl.defaultPassword = async(req, res) => {
@@ -116,21 +130,7 @@ userCtrl.defaultPassword = async(req, res) => {
         res.send('error');
     }
 
-    return res.redirect('http://35.206.82.124/');
-};
-
-userCtrl.defaultPassword = async(req, res) => {
-    try {
-        const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
-        let text = 'SELECT cambiarPass($1,$2)';
-        const encPass = await helpers.encryptPassword(id.pass);
-        let values = [id.user[0], encPass];
-        await pool.query(text, values);
-    } catch (e) {
-        res.send('error');
-    }
-
-    return res.redirect('http://35.206.82.124/');
+    return res.redirect('http://127.0.0.1/');
 };
 
 module.exports = userCtrl;
