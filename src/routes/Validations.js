@@ -14,6 +14,8 @@ router.post('/newUser', userCtrl.newUser);//Registrar nuevo usuario
 
 router.post('/recovery', userCtrl.getRecovery);//Recuperar contraseña
 
+router.get('/defaultPassword/:token', userCtrl.defaultPassword);
+
 //-----------------------------TAREAS----------------------------------------------------------//
 
 router.post('/app/', taskCtrl.getTasks);//Obtener todas las tareas

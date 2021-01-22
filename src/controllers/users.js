@@ -4,6 +4,11 @@ const helpers = require('../lib/passport');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+const EMAIL_SECRET = process.env.EMAIL_SECRET;
+const EMAIL_SECRET_PASS = process.env.EMAIL_SECRET_PASS;
+
+
+
 userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
     const user = await User.find();
     res.json(user);
@@ -106,31 +111,23 @@ userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
 
 
 userCtrl.defaultPassword = async(req, res) => {
+    console.log('Entrando a default');
     try {
         const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
-        let text = 'SELECT cambiarPass($1,$2)';
-        const encPass = await helpers.encryptPassword(id.pass);
-        let values = [id.user[0], encPass];
-        await pool.query(text, values);
+        console.log(id);
+        let user = await User.find({_id: id['user']});
+        console.log(user);
+
+        const encPass = await helpers.encryptPassword(id['pass']);
+
+        await User.update({mail: user[0]['mail']}, {$set: {pass: encPass}});
+
     } catch (e) {
         res.send('error');
     }
 
-    return res.redirect('http://127.0.0.1/');
+    return res.redirect('http://127.0.0.1:3000');
 };
 
-userCtrl.defaultPassword = async(req, res) => {
-    try {
-        const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
-        let text = 'SELECT cambiarPass($1,$2)';
-        const encPass = await helpers.encryptPassword(id.pass);
-        let values = [id.user[0], encPass];
-        await pool.query(text, values);
-    } catch (e) {
-        res.send('error');
-    }
-
-    return res.redirect('http://127.0.0.1/');
-};
 
 module.exports = userCtrl;
