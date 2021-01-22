@@ -17,9 +17,9 @@
                   autofocus
                 />
               </div>
-
+              <br>
               <button
-                class="btn btn-lg btn-primary btn-block text-uppercase"
+                class="btn btn-lg btn-primary btn-block"
                 type="submit"
               >
                 Recuperar
@@ -47,6 +47,15 @@ export default {
     };
   },
   methods: {
+    resetPass() {
+      // Use sweetalert2
+      this.$swal({
+        title: "Listo",
+        text: "Se ha enviado un enlace a tu correo para reestablecer tu contraseña",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+    },
     reset() {
       fetch("/api/auth/resetPass", {
         method: "POST",
@@ -56,8 +65,7 @@ export default {
           "Content-type": "application/json",
         },
       })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+        this.resetPass();
     },
   },
 };

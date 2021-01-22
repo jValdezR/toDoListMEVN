@@ -6,48 +6,64 @@
           <div class="card-body">
             <h5 class="card-title text-center">Iniciar sesion</h5>
             <form @submit.prevent="register" class="form-signin">
-                <div class="form-label-group">
-                <input
+              <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+              <input
                   v-model="user.name"
-                  type="text"
-                  class="form-control"
-                  placeholder="Nombre(s)"
-                  required
-                  autofocus
-
-                />
-              </div>
-
-              <div class="form-label-group">
-                <input
-                  v-model="user.mail"
                   type="email"
+                  id="inputEmail"
                   class="form-control"
                   placeholder="correo@example.com"
                   required
+                  autofocus
                 />
               </div>
 
-                <div class="form-label-group">
+            
+
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">E-mail</label>
                 <input
-                  v-model="user.phone"
-                  type="phone"
-                  class="form-control"
-                  placeholder="Numero a 10 digitos"
-                  required
-                />
-              </div>
-              <div class="form-label-group">
-                <input
-                  v-model="user.pass"
+                  v-model="user.mail"
                   type="password"
+                  id="inputPassword"
                   class="form-control"
                   placeholder="Contraseña"
                   required
                 />
               </div>
+
+              <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Telefono</label>
+              <input
+                  v-model="user.phone"
+                  type="email"
+                  id="inputEmail"
+                  class="form-control"
+                  placeholder="correo@example.com"
+                  required
+                  
+                />
+              </div>
+
+            
+
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Constraseña</label>
+                <input
+                  v-model="user.pass"
+                  type="password"
+                  id="inputPassword"
+                  class="form-control"
+                  placeholder="Contraseña"
+                  required
+                />
+              </div>
+
+                
+              <br>
               <button
-                class="btn btn-lg btn-primary btn-block text-uppercase"
+                class="btn btn-lg btn-primary btn-block"
                 type="submit"
               >
                 Registrar
@@ -79,6 +95,24 @@ export default {
     }
   },
   methods: {
+    registered() {
+      // Use sweetalert2
+      this.$swal({
+        title: "Listo!",
+        text: "Registrado con exito",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+    },
+    alreadyRegistered() {
+      // Use sweetalert2
+      this.$swal({
+        title: "Error!",
+        text: "Ya se encuentra registrado.",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+    },
     register() {
       fetch('/api/auth/newUser', {
         method: 'POST',
@@ -89,7 +123,13 @@ export default {
         },
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+          if(data.status == 'Email already registered!'){
+            this.alreadyRegistered();
+          }
+          else
+          this.registered();
+        });
     },
   },
 };

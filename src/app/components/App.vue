@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <router-link :to="{name: 'login'}"><button class="btn btn-danger float-right">Cerrar sesión</button></router-link>
                 
             </div>
@@ -60,12 +60,6 @@
 </template>
 
 <script>
-/* class Task {
-    constructor(title,descripcion) {
-        this.title = title;
-        this.descripcion = descripcion;
-    }
-} */
 
 
 export default {
@@ -76,7 +70,6 @@ export default {
                 title: '',
                 descripcion: ''
             },
-            /* id_user: JSON.parse(localStorage.getItem(key:)) */
             tasks: [],
             edit: false
         }
@@ -97,7 +90,7 @@ export default {
             })
             .then(res => res.json())
             .then( data  => {
-                console.log(data);
+/*                 console.log(data); */
                 this.tasks = data;
             })
         },
@@ -117,7 +110,7 @@ export default {
                 .then( this.getTask())
             }
             else{
-                console.log(this.id_task);
+                /* console.log(this.id_task); */
                 this.edit = false;
                 fetch('/api/auth/app/updateTask/'+ this.id_task,{
                 method: 'PUT',
@@ -129,7 +122,7 @@ export default {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    /* console.log(data); */
                 })
                 .then( this.getTask())
             }
@@ -139,7 +132,7 @@ export default {
             },
 
         deleteTask(id) {
-            console.log(id);
+            /* console.log(id); */
             fetch('/api/auth/app/deleteTask/' + id, {
                 method: 'DELETE',
                 headers: {
@@ -147,8 +140,6 @@ export default {
                     'Content-type': 'application/json'
                 }
             })
-            .then(res => res.json())
-            .then(data =>console.log(data))
             .then(this.getTask());
         },
 
