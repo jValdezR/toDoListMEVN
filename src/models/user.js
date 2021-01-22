@@ -6,6 +6,7 @@ const User = new Schema({
     mail: String,
     phone: String,
     pass: String,
+    active: Boolean
 },
 {
     collection: 'users'

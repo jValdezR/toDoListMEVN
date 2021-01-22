@@ -10,10 +10,10 @@
               <label for="exampleFormControlInput1" class="form-label">Nombre</label>
               <input
                   v-model="user.name"
-                  type="email"
-                  id="inputEmail"
+                  type="text"
+                  
                   class="form-control"
-                  placeholder="correo@example.com"
+                  placeholder="Nombre(s)"
                   required
                   autofocus
                 />
@@ -25,10 +25,10 @@
                 <label for="exampleFormControlInput1" class="form-label">E-mail</label>
                 <input
                   v-model="user.mail"
-                  type="password"
-                  id="inputPassword"
+                  type="email"
+                  id="inputEmail"
                   class="form-control"
-                  placeholder="Contraseña"
+                  placeholder="correo@example.com"
                   required
                 />
               </div>
@@ -37,10 +37,9 @@
               <label for="exampleFormControlInput1" class="form-label">Telefono</label>
               <input
                   v-model="user.phone"
-                  type="email"
-                  id="inputEmail"
+                  type="phone"
                   class="form-control"
-                  placeholder="correo@example.com"
+                  placeholder="Numero a 10 digitos"
                   required
                   
                 />
@@ -91,6 +90,7 @@ export default {
         mail: "",
         phone: "",
         pass: "",
+        active: false
       },
     }
   },

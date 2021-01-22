@@ -56,7 +56,7 @@ export default {
         confirmButtonText: "Cerrar",
       });
     },
-    reset() {
+    /* reset() {
       fetch("/api/auth/resetPass", {
         method: "POST",
         body: JSON.stringify(this.user),
@@ -66,7 +66,7 @@ export default {
         },
       })
         this.resetPass();
-    },
+    }, */
   },
 };
 </script>
