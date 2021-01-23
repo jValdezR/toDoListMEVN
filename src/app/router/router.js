@@ -5,6 +5,7 @@ import login from '../views/login.vue'
 import App from '../views/App.vue'
 import newUser from '../views/newUser.vue'
 import resetPass from '../views/resetPass.vue'
+import user from '../views/user.vue'
 
 Vue.use(Router);
 
@@ -32,7 +33,11 @@ export default new Router({
             name: "app",
             component: App
         },
-
+        {
+            path: "/user",
+            name: "user",
+            component: user
+        },
     ]
 });
 

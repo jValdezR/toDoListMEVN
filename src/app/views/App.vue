@@ -3,7 +3,7 @@
         <div class="container">
             <my-nav></my-nav>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <router-link :to="{name: 'login'}"><button class="btn btn-danger float-right">Cerrar sesión</button></router-link>
+                
                 
             </div>
             <div class="row pt-5">

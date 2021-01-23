@@ -2,10 +2,19 @@
     <!-- Image and text -->
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+      
+    
+    <div>
+<router-link :to="{name: 'user'}">
+<a class="navbar-brand" href="#">
       <i class="fas fa-user"></i>
       {{user.name}}
     </a>
+</router-link>
+    </div>
+    <form class="d-flex">
+        <router-link :to="{name: 'login'}"><button class="btn btn-danger float-right">Cerrar sesión</button></router-link>
+      </form>
   </div>
 </nav>
 </template>
