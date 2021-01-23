@@ -18,7 +18,7 @@
                                     cols="30" rows="10"></textarea>
                                 </div>           
                                 <br>
-                                <template v-if="edit ===false">
+                                <template v-if="edit === false">
                                     <button class="btn btn-outline-success">Guardar</button>
                                 </template> 
                                 <template v-else>

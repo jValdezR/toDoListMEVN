@@ -36,6 +36,26 @@
                 <label class="m-l-200 txtInfoTitulo">Telefono:</label>
                 <label class="m-l-20 txtInfoDesc">{{ user.phone }}</label>
               </div>
+              <div>
+                <button @click="changePass()" type="button" class="btn btn-success btn-lg">
+                  Cambiar contraseña
+                </button>
+                <template v-if="editpass === true">
+                    <div>
+                        <label for="">Introduce tu contraseña actual</label>
+                        <input type="password" name="" id="">
+                    </div>
+                    <div>
+                        <label for="">Introduce tu nueva contraseña</label>
+                        <input type="password" name="" id="">
+                    </div>
+
+                    <div>
+                        <button class="btn btn-danger">Cambiar contraseña</button>
+                    </div>
+                </template>
+                <template v-else></template>
+              </div>
               <div class="col-2"></div>
             </div>
           </div>
@@ -60,12 +80,16 @@ export default {
         phone: "",
         pass: "",
       },
+      editpass: false,
     };
   },
   created() {
     this.getUserinfo();
   },
   methods: {
+    changePass() {
+        this.editpass = true;
+    },
     getUserinfo() {
       const ide = sessionStorage.getItem("id");
 
