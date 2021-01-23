@@ -1,11 +1,7 @@
 <template>
-    <div>
+    <div class="">
         <div class="container">
             <my-nav></my-nav>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                
-                
-            </div>
             <div class="row pt-5">
                 <div class="col-md-5">
                     <div class="card">
@@ -21,22 +17,24 @@
                                     placeholder="Agrega una descripcion" 
                                     cols="30" rows="10"></textarea>
                                 </div>           
+                                <br>
                                 <template v-if="edit ===false">
-                                    <button class="btn btn-primary btn-block">Guardar</button>
+                                    <button class="btn btn-outline-success">Guardar</button>
                                 </template> 
                                 <template v-else>
-                                    <button class="btn btn-primary btn-block">Editar</button>
+                                    <button class="btn btn-outline-warning">Editar</button>
                                 </template> 
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-5">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Tarea</th>
                                 <th>Descripcion</th>
+                                <th class="">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,10 +44,8 @@
                                 </td>
                                 <td>{{task.descripcion}}</td>
                                 <td>
-                                    <button @click="updateTask(task._id)" class="btn btn-secondary">Editar</button>
-                                </td>
-                                <td>
-                                    <button @click="deleteTask(task._id)" class="btn btn-danger">Eliminar</button>
+                                    <button @click="updateTask(task._id)" class="btn btn-outline-warning ms-5">Editar</button>
+                                    <button @click="deleteTask(task._id)" class="btn btn-outline-danger ms-5">Eliminar</button>
                                 </td>
                             </tr>
                         </tbody>
