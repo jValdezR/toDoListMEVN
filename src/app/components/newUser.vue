@@ -59,6 +59,15 @@
                 />
               </div>
 
+              <input
+                  v-model="user.active"
+                  type="password"
+                  id="inputPassword"
+                  class="form-control"
+                  hidden
+                  value="false"
+                />
+
                 
               <br>
               <button
@@ -114,6 +123,7 @@ export default {
       });
     },
     register() {
+      console.log(this.user);
       fetch('/api/auth/newUser', {
         method: 'POST',
         body: JSON.stringify(this.user),

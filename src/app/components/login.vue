@@ -98,6 +98,15 @@ export default {
         confirmButtonText: "Cerrar",
       });
     },
+    mailNotConfirmed() {
+      // Use sweetalert2
+      this.$swal({
+        title: "Error!",
+        text: "No ha confirmado su email",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+    },
     loadStorage() {
       const password = JSON.parse(localStorage.getItem("user"));
       if (password) {
@@ -125,6 +134,8 @@ export default {
             this.$router.push("App");
           } else if (data.status == "failed") {
             this.wrongPass();
+          } else if (data.status =="not-confirmed"){
+            this.mailNotConfirmed();
           } else {
             this.unkownMail();
           }

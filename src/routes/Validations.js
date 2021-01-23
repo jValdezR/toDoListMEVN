@@ -14,7 +14,9 @@ router.post('/newUser', userCtrl.newUser);//Registrar nuevo usuario
 
 router.post('/recovery', userCtrl.getRecovery);//Recuperar contraseña
 
-router.get('/defaultPassword/:token', userCtrl.defaultPassword);
+router.get('/defaultPassword/:token', userCtrl.defaultPassword);//Contraseña nueva
+
+router.get('/confirmation/:token', userCtrl.registerConfirm);//Confirmacion de email
 
 //-----------------------------TAREAS----------------------------------------------------------//
 

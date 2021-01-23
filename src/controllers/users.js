@@ -28,7 +28,8 @@ userCtrl.login = async (req, res) => {//Loguear un usuario
                 });
             else if(verification == 'wrong pass')
                 res.json({ status: 'failed' });
-            
+            else (verification == 'not-confirmed')
+                res.json({status: 'not-confirmed'})
         } catch (error) {
     
         }
@@ -60,63 +61,31 @@ userCtrl.getRecovery = async(req, res) => {
     } catch (e) { /* console.log(e); */ }
 };
 
-/* userCtrl.newPass = async(req, res) => {
-    let id_user = req.body.id_user;
-    let pass = req.body.pass;
-    let newPass = req.body.newPass;
-    try {
-        const text = 'SELECT * FROM usuario WHERE id_usuario = $1';
-        const values = [id_user];
-        const { rows } = await pool.query(text, values);
-        if (rows.length > 0) {
-            const OkPass = await helpers.matchPassword(pass, rows[0].pass);
-            if (OkPass) {
-                const encPass = await helpers.encryptPassword(newPass);
-                let text2 = 'UPDATE usuario SET pass=$1 WHERE id_usuario=$2';
-                let values2 = [encPass, id_user];
-                await pool.query(text2, values2);
-                res.json('Password Changed!');
-            } else {
-                res.json('Wrong Password!');
-            }
-        }
-    } catch (e) {
-        console.log(e); 
-    }
-}; 
-*/
+
 
 userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
     try {
+        console.log("Entrando a registerConfirm");
         const id = jwt.verify(req.params.token, EMAIL_SECRET);
-        let text2 = 'SELECT * FROM vistaEstadoUsuario WHERE id_usuario = $1';
-        let values = [id.user];
-        const { rows } = await pool.query(text2, values);
+        const user = await User.find({mail: id['user']});
 
-        if (rows[0].active == false) {
-            let text = 'SELECT estadoUsuario($1)';
-            await pool.query(text, values);
-        } else if (rows[0].activo == null) {
-            let activo = true;
-            let text2 = 'UPDATE usuario SET activo=$1 WHERE id_usuario=$2';
-            let values2 = [activo, id.user];
-            await pool.query(text2, values2);
-        }
+        await User.update({mail: id['user']}, {$set: {active: true}});
+
     } catch (e) {
-        res.send('error: ' + e);
+        res.send('error');
     }
 
-    return res.redirect('http://127.0.0.1');
+    return res.redirect('http://127.0.0.1:3000');
+
 };
 
 
 userCtrl.defaultPassword = async(req, res) => {
-    console.log('Entrando a default');
+    /* console.log('Entrando a default'); */
     try {
         const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
         console.log(id);
-        let user = await User.find({_id: id['user']});
-        console.log(user);
+        const user = await User.find({_id: id['user']});
 
         const encPass = await helpers.encryptPassword(id['pass']);
 

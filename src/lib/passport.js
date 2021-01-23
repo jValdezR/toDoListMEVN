@@ -29,10 +29,12 @@ helpers.singIn = async (data) => {
 
     const user = await User.find({ mail: data.mail });
     const okPass = await helpers.matchPassword(data.pass,user[0]['pass']);
-    console.log(okPass);
     if(user.length > 0){
         if(okPass)
-        return 'ok';
+            if(user[0]['active'])
+                return 'ok';
+            else
+                return 'not-confirmed'
     else
         return 'wrong pass';
     }
@@ -45,14 +47,15 @@ helpers.signUp = async(newUser) => {
 
     if(user.length == 0){
         const encPass = await helpers.encryptPassword(newUser.pass);
-        /* await checkId().then(res => newUser._id = parseInt(res)); */
         const usernew = new User ({
             name: newUser.name,
             mail: newUser.mail,
             phone: newUser.phone,
-            pass: encPass
+            pass: encPass,
+            active: newUser.active
         });
         await usernew.save();
+        sendWelcomeEmail(usernew);
         return true;
     }
     else
@@ -70,7 +73,7 @@ function makePass(size) {
 }
 
 helpers.mailRe = async(data) => {
-    console.log('Entrando a jelper');
+    /* console.log('Entrando a jelper'); */
     const user = await User.find({ mail: data });
     if (user.length > 0) {
         let size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;

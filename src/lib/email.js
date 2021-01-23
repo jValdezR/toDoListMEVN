@@ -9,6 +9,8 @@ const EMAIL_PASS_NODE = process.env.EMAIL_PASS_NODE;
 
 
 function sendWelcomeEmail(User) {
+    console.log(User);
+    console.log(User['mail']);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -20,7 +22,7 @@ function sendWelcomeEmail(User) {
     jwt.sign(
         {
 
-            user: (User.id_user),
+            user: (User['mail']),
         },
         EMAIL_SECRET,
         {
@@ -30,7 +32,7 @@ function sendWelcomeEmail(User) {
             const url = `http://127.0.0.1:3000/api/auth/confirmation/${emailToken}`;
 
             transporter.sendMail({
-                to: User.email,
+                to: User.mail,
                 subject: 'Confirm Email',
                 html: `<h3>Por favor da click en el enlace para finalizar tu registro:<br><br>
         <a href="${url}">${url}</a><br><br></h3> 
@@ -38,7 +40,7 @@ function sendWelcomeEmail(User) {
         <img src='cid:logo'/><br>`,
                 attachments: [{
                     filename: 'logo.png',
-                    path: __dirname + '/../assets/logo.png',
+                    path: __dirname + '/../app/assets/logo.png',
                     cid: 'logo'
                 }]
             });
