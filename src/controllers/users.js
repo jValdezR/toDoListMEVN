@@ -67,12 +67,11 @@ userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
     try {
         console.log("Entrando a registerConfirm");
         const id = jwt.verify(req.params.token, EMAIL_SECRET);
-        const user = await User.find({mail: id['user']});
 
         await User.update({mail: id['user']}, {$set: {active: true}});
 
     } catch (e) {
-        res.send('error');
+        /* console.log(e); */
     }
 
     return res.redirect('http://127.0.0.1:3000');
