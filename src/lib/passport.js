@@ -20,7 +20,7 @@ helpers.matchPassword = async (password, savedPassword) => {
         });
         return a;
     } catch (err) {
-        console.log(err);
+        
     }
 
 };
@@ -73,7 +73,7 @@ function makePass(size) {
 }
 
 helpers.mailRe = async(data) => {
-    /* console.log('Entrando a jelper'); */
+    
     const user = await User.find({ mail: data });
     if (user.length > 0) {
         let size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;

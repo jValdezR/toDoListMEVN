@@ -8,6 +8,8 @@ const taskCtrl = require('../controllers/tasks')
 
 router.get('/',userCtrl.getUsers);//Obtener usuarios
 
+router.get('/:id', userCtrl.getUser);//Obtener un usuario
+
 router.post('/login', userCtrl.login);//Loguear usuario
 
 router.post('/newUser', userCtrl.newUser);//Registrar nuevo usuario

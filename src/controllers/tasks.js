@@ -10,7 +10,6 @@ taskCtrl.getTask = async(req,res) => {
 
 //Obtiene las tareas de la bd
 taskCtrl.getTasks = async(req, res) =>{
-    console.log(req.body.id);
     const tasks = await Task.find({id_usuario: req.body.id});
     res.json(tasks);
 };
@@ -18,7 +17,6 @@ taskCtrl.getTasks = async(req, res) =>{
 //Inserta una nueva tarea en la bd
 taskCtrl.addTask = async (req, res) =>{
     const task = new Task(req.body);
-    console.log(task);
 
     await task.save();
     res.json({

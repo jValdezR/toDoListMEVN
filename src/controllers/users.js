@@ -10,6 +10,11 @@ const EMAIL_SECRET_PASS = process.env.EMAIL_SECRET_PASS;
 
 
 userCtrl.getUsers = async (req, res) => {//Obtener todos los usuarios
+    const user = await User.findById(req.params.id);
+    res.json(user);
+}
+
+userCtrl.getUser = async (req, res) => {//Obtener todos los usuarios
     const user = await User.find();
     res.json(user);
 }
@@ -49,7 +54,7 @@ userCtrl.newUser = async (req, res) => {//Registrar nuevo usuario
             res.json({ status: 'Email already registered!' });
 
     } catch (e) {
-        /* console.log(e); */
+        
     }
 };
 
@@ -58,20 +63,22 @@ userCtrl.getRecovery = async(req, res) => {
     try {
         const Verification = await helpers.mailRe(mail['mail']);
         res.json({ status: Verification });
-    } catch (e) { /* console.log(e); */ }
+    } catch (e) {
+
+    }
 };
 
 
 
 userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
     try {
-        console.log("Entrando a registerConfirm");
+        
         const id = jwt.verify(req.params.token, EMAIL_SECRET);
 
         await User.update({mail: id['user']}, {$set: {active: true}});
 
     } catch (e) {
-        /* console.log(e); */
+        
     }
 
     return res.redirect('http://127.0.0.1:3000');
@@ -80,10 +87,10 @@ userCtrl.registerConfirm = async(req, res) => {//Confirmar al usuario activo
 
 
 userCtrl.defaultPassword = async(req, res) => {
-    /* console.log('Entrando a default'); */
+    
     try {
         const id = jwt.verify(req.params.token, EMAIL_SECRET_PASS);
-        console.log(id);
+        
         const user = await User.find({_id: id['user']});
 
         const encPass = await helpers.encryptPassword(id['pass']);

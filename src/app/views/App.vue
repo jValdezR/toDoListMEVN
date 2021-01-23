@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="container">
+            <my-nav></my-nav>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <router-link :to="{name: 'login'}"><button class="btn btn-danger float-right">Cerrar sesión</button></router-link>
                 
@@ -60,9 +61,12 @@
 </template>
 
 <script>
-
+import nav from '../components/navbar.vue'
 
 export default {
+    components: {
+        'my-nav': nav
+    },
     data() {
         return {
             task: {
@@ -90,7 +94,7 @@ export default {
             })
             .then(res => res.json())
             .then( data  => {
-/*                 console.log(data); */
+
                 this.tasks = data;
             })
         },
@@ -110,7 +114,7 @@ export default {
                 .then( this.getTask())
             }
             else{
-                /* console.log(this.id_task); */
+                
                 this.edit = false;
                 fetch('/api/auth/app/updateTask/'+ this.id_task,{
                 method: 'PUT',
@@ -121,9 +125,6 @@ export default {
                    }
                 })
                 .then(res => res.json())
-                .then(data => {
-                    /* console.log(data); */
-                })
                 .then( this.getTask())
             }
         
@@ -132,7 +133,7 @@ export default {
             },
 
         deleteTask(id) {
-            /* console.log(id); */
+            
             fetch('/api/auth/app/deleteTask/' + id, {
                 method: 'DELETE',
                 headers: {
@@ -144,7 +145,7 @@ export default {
         },
 
         updateTask(id) {
-            console.log(id);
+            
             fetch('/api/auth/app/' + id)
             .then(res => res.json())
             .then(data => {

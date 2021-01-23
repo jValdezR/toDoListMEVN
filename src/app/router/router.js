@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import login from '../components/login.vue'
-import App from '../components/App.vue'
-import newUser from '../components/newUser.vue'
-import resetPass from '../components/resetPass.vue'
+import login from '../views/login.vue'
+import App from '../views/App.vue'
+import newUser from '../views/newUser.vue'
+import resetPass from '../views/resetPass.vue'
 
 Vue.use(Router);
 
@@ -35,3 +35,4 @@ export default new Router({
 
     ]
 });
+
