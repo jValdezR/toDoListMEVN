@@ -1,15 +1,17 @@
 <template>
   <div class="container">
+    <my-nav></my-nav>
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center">Iniciar sesion</h5>
             <form @submit.prevent="login" class="form-signin">
-              
               <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-              <input
+                <label for="exampleFormControlInput1" class="form-label"
+                  >E-mail</label
+                >
+                <input
                   v-model="userLogin.mail"
                   type="email"
                   id="inputEmail"
@@ -20,10 +22,10 @@
                 />
               </div>
 
-            
-
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Contraseña</label
+                >
                 <input
                   v-model="userLogin.pass"
                   type="password"
@@ -42,19 +44,6 @@
                 <button class="btn btn-success btn-lg" type="submit">
                   Entrar
                 </button>
-
-                <router-link :to="{ name: 'register' }">
-                  <div class="position-relative">
-                    <button class="btn btn-primary btn-block">Nuevo usuario?</button>
-                  </div>
-                </router-link>
-
-                <router-link class="" :to="{ name: 'resetPass' }">
-                  <div class="position-relative">
-                    <button class="btn btn-danger btn-block">Olvidaste tu pass?</button>
-                  </div>
-                </router-link>
-
                 <hr class="my-4" />
               </div>
             </form>
@@ -66,7 +55,11 @@
 </template>
 
 <script>
+import nav from '../components/navbar-login.vue'
 export default {
+  components: {
+        'my-nav': nav
+    },
   data() {
     return {
       userLogin: {
@@ -125,7 +118,6 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.status);
           if (data.status == "ok") {
             if (this.checked) {
               localStorage.setItem("user", JSON.stringify(this.userLogin));
@@ -134,7 +126,7 @@ export default {
             this.$router.push("App");
           } else if (data.status == "failed") {
             this.wrongPass();
-          } else if (data.status =="not-confirmed"){
+          } else if (data.status == "not-confirmed") {
             this.mailNotConfirmed();
           } else {
             this.unkownMail();

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <my-nav></my-nav>
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
@@ -17,14 +18,14 @@
                 />
               </div>
               <br />
-              <button class="btn btn-lg btn-primary btn-block" type="submit">
+              <button class="btn btn-outline-success" type="submit">
                 Recuperar
               </button>
               <br />
               <hr class="my-4" />
             </form>
             <router-link :to="{ name: 'login' }">
-              <button class="btn btn-danger">Regresar</button>
+              <button class="btn btn-outline-danger">Regresar</button>
             </router-link>
           </div>
         </div>
@@ -34,7 +35,11 @@
 </template>
 
 <script>
+import nav from '../components/navbar-login.vue'
 export default {
+  components: {
+        'my-nav': nav
+    },
   data() {
     return {
       user: {
